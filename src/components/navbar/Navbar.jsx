@@ -4,6 +4,7 @@ import { NAVBAR_HEIGHT } from "../../constants";
 import { useTheme, useMediaQuery, Container, Stack, Button } from '@mui/material'
 import useScrollPosition from "../../hooks/useScrollPosition";
 import NavButton from "../buttons/NavButton";
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 export default function Navbar () {
@@ -11,7 +12,7 @@ export default function Navbar () {
   const scrollPostion = useScrollPosition()
 
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <AppBar 
@@ -32,22 +33,29 @@ export default function Navbar () {
           {/* Scott Hughes (ie home button)*/}
           <NavButton>Scott Hughes</NavButton>
           {/* Links */}
+          { !isMediumScreen 
+            ? 
+              ( <Stack
+                direction={'row'}
+                alignItems={'center'}
+                justifyContent={'end'}
+                spacing={6}
+                sx={{ flex: 1 }}
+                flexWrap={'wrap'}
+              >
+                <NavButton>About</NavButton>
+                <NavButton>Skills</NavButton>
+                <NavButton>Projects</NavButton>
+                <NavButton>Contact</NavButton>
+                <NavButton>Resume</NavButton>
+                
+              </Stack> )
+            : 
+              <NavButton>
+                <MenuIcon />
+              </NavButton> 
+        }
 
-          <Stack
-            direction={'row'}
-            alignItems={'center'}
-            justifyContent={'end'}
-            spacing={6}
-            sx={{ flex: 1 }}
-            flexWrap={'wrap'}
-          >
-            <NavButton>About</NavButton>
-            <NavButton>Skills</NavButton>
-            <NavButton>Projects</NavButton>
-            <NavButton>Contact</NavButton>
-            <NavButton>Resume</NavButton>
-            
-          </Stack>
 
         </Stack>
       </Container>
